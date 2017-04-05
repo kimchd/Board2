@@ -43,7 +43,7 @@ public class ViewController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		int bno = Integer.parseInt(request.getParameter("bno"));
-
+		
 		System.out.println(bno);
 		List<BoardVO> list = new ArrayList<>();
 
@@ -66,6 +66,7 @@ public class ViewController extends HttpServlet {
 			throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
+		int page = Integer.parseInt(request.getParameter("pageNum"));
 		String title = request.getParameter("title");
 		int parent = Integer.parseInt(request.getParameter("parent"));
 		int gno = Integer.parseInt(request.getParameter("gno"));
@@ -79,7 +80,7 @@ public class ViewController extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		response.sendRedirect("/list");
+		response.sendRedirect("/list?pageNum="+page);
 	}
 
 }

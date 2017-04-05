@@ -40,7 +40,7 @@ a {
 	<div class="list">
 		<C:forEach items="${list}" var="list">
 
-			<a href='view?bno=${list.bno}'><li>${list.bno}${" "}${list.title} ${" "} ${list.writer} ${" "}
+			<a href='view?bno=${list.bno}&pageNum=${pager.current}'><li>${list.bno}${" "}${list.title} ${" "} ${list.writer} ${" "}
 				${list.regdate} ${" "} ${list.updatedate}</li></a>
 
 		</C:forEach>
