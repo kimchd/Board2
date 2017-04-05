@@ -144,7 +144,7 @@ public class BoardDAO extends AbstractDAO {
 		
 
 	}
-	public void insertList(String title , String content, String writer) throws Exception{
+	public void insertList(BoardVO vo) throws Exception{
 		
 	   
 		Connection con = null;
@@ -159,13 +159,11 @@ public class BoardDAO extends AbstractDAO {
 			
 			con = dataSource.getConnection();
 
-			
-
 			psmt = con.prepareStatement(sql);
 			
-			psmt.setString(1, title);
-			psmt.setString(2, content);
-			psmt.setString(3, writer);
+			psmt.setString(1, vo.getTitle());
+			psmt.setString(2, vo.getContent());
+			psmt.setString(3, vo.getWriter());
 			
 			psmt.executeUpdate();
 			
@@ -224,7 +222,7 @@ public class BoardDAO extends AbstractDAO {
 		return list;
 	}
 
-	public void reply(String title, String content, String writer, int parent, int gno, int gord)throws Exception{
+	public void reply(BoardVO vo)throws Exception{
 				//답글
 				String sqlRe="insert into tbl_board2 (bno , title, content, writer, gno, gord, parent) values (seq_board2.nextval, ?, ?, ?,?,?,?)";
 				//업데이트
@@ -233,6 +231,8 @@ public class BoardDAO extends AbstractDAO {
 				Connection con = null;
 				PreparedStatement psmt = null;
 				ResultSet rs = null;
+				
+				String a = null;
 				
 				try{
 					con = dataSource.getConnection();
@@ -243,8 +243,8 @@ public class BoardDAO extends AbstractDAO {
 					psmt = con.prepareStatement(sqlup);
 							
 
-					psmt.setInt(1, gno);
-					psmt.setInt(2, gord+1);
+					psmt.setInt(1, vo.getGno());
+					psmt.setInt(2, vo.getGord()+1);
 							
 					psmt.executeUpdate();
 
@@ -252,12 +252,13 @@ public class BoardDAO extends AbstractDAO {
 
 					psmt = con.prepareStatement(sqlRe);
 					
-					psmt.setString(1, title);
-					psmt.setString(2, content);
-					psmt.setString(3, writer);
-					psmt.setInt(4, gno);
-					psmt.setInt(5, gord+1);
-					psmt.setInt(6, parent);
+					
+					psmt.setString(1, vo.getTitle());
+					psmt.setString(2, vo.getContent());
+					psmt.setString(3, vo.getWriter());
+					psmt.setInt(4, vo.getGno());
+					psmt.setInt(5, vo.getGord()+1);
+					psmt.setInt(6, vo.getParent());
 					
 					
 					psmt.executeUpdate();

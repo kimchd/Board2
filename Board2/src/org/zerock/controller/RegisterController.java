@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.zerock.persistence.BoardDAO;
+import org.zerock.persistence.BoardVO;
 
 /**
  * Servlet implementation class RegisterController
@@ -49,12 +50,15 @@ public class RegisterController extends HttpServlet {
 			throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
-		String writer = request.getParameter("writer");
+		
+		BoardVO vo = new BoardVO();
+		vo.setTitle(request.getParameter("title"));
+		vo.setContent(request.getParameter("content"));
+		vo.setWriter(request.getParameter("writer"));
+		
 		
 		try {
-			dao.insertList(title, content, writer);
+			dao.insertList(vo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

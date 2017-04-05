@@ -66,17 +66,20 @@ public class ViewController extends HttpServlet {
 			throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
+		
+		BoardVO vo = new BoardVO();
+		
+		vo.setTitle(request.getParameter("title"));
+		vo.setContent(request.getParameter("content"));
+		vo.setParent(Integer.parseInt(request.getParameter("parent")));
+		vo.setGno(Integer.parseInt(request.getParameter("gno")));
+		vo.setGord(Integer.parseInt(request.getParameter("gord")));
+		vo.setWriter(request.getParameter("writer"));
+		
 		int page = Integer.parseInt(request.getParameter("pageNum"));
-		String title = request.getParameter("title");
-		int parent = Integer.parseInt(request.getParameter("parent"));
-		int gno = Integer.parseInt(request.getParameter("gno"));
-		int gord = Integer.parseInt(request.getParameter("gord"));
-		String content = request.getParameter("content");
-		String writer = request.getParameter("writer");
-		int bno = Integer.parseInt(request.getParameter("bno"));
 
 		try {
-			dao.reply(title, content, writer, parent, gno, gord);
+			dao.reply(vo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
